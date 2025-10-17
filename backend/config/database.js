@@ -5,9 +5,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 if (!process.env.DB_HOST || !process.env.DB_NAME || !process.env.DB_USER || !process.env.DB_PASSWORD) {
-  console.error('❌ Missing required database environment variables!');
-  console.error('Required: DB_HOST, DB_NAME, DB_USER, DB_PASSWORD');
-  process.exit(1);
+  console.warn('⚠️ Missing one or more database environment variables.');
+  console.warn('Recommended: set DB_HOST, DB_NAME, DB_USER, DB_PASSWORD in backend/.env or environment.');
+  console.warn('The server will continue to start but database connections may fail until configured.');
+  // Do not exit the process here — allow the server to bind so health checks and port scans succeed.
 }
 
 const sslConfig = (process.env.DB_SSL === 'true')
