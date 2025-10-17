@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: smile_dental_admin_frontend:latest
+    ports:
+      - "8080:81" # host:container
+    environment:
+      - VITE_API_BASE_URL=http://backend:3002
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: smile_dental_admin_backend:latest
+    ports:
+      - "3002:3002"
+    env_file:
+      - ./backend/.env
+    environment:
+      - PORT=3002
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3002/api/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

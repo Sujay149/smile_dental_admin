@@ -11,8 +11,25 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3002;
 
+// CORS configuration: support comma-separated list of allowed origins or ALLOW_ALL_ORIGINS for dev
+const rawOrigins = process.env.CORS_ORIGIN || 'http://localhost:5174';
+const allowAll = process.env.ALLOW_ALL_ORIGINS === 'true';
+const allowedOrigins = rawOrigins.split(',').map(o => o.trim()).filter(Boolean);
+
+console.log('🔒 CORS configuration: allowAll=', allowAll, 'allowedOrigins=', allowedOrigins);
+
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || 'http://65.2.172.252:5174',
+  origin: function (origin, callback) {
+    // If no origin (e.g., same-origin requests, curl, server-to-server), allow it
+    if (!origin) return callback(null, true);
+    if (allowAll) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    // not allowed: log and deny without throwing to avoid 500 response
+    console.warn('⚠️ CORS blocked origin:', origin);
+    return callback(null, false);
+  },
   credentials: true,
   optionsSuccessStatus: 200
 };

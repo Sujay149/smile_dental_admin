@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: smile-dental-admin-backend
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    branch: main
+    plan: free
+    instanceCount: 1
+    env:
+      - key: PORT
+        value: "3002"
+# NOTE: Do NOT commit production credentials into this file. Add the following environment variables in the Render dashboard for the service:
+#   DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD, DB_SSL, CORS_ORIGIN
+# You can also set any other secrets in the Render dashboard's Environment section.
