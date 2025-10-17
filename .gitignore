@@ -1,0 +1,76 @@
+# Node dependencies
+node_modules/
+
+# Lockfiles (uncomment to keep if required by your CI)
+# package-lock.json
+# pnpm-lock.yaml
+# yarn.lock
+
+# Vite / build
+dist/
+.vite/
+.cache/
+coverage/
+
+# Environment files (do not commit secrets)
+.env
+.env.local
+.env.*.local
+backend/.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Typescript
+*.tsbuildinfo
+
+# Optional npm cache
+.npm/
+
+# Backend
+backend/node_modules/
+backend/dist/
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# Certificates / keys
+*.pem
+*.key
+*.crt
+
+# JetBrains
+*.iml
+
+# Mac
+.AppleDouble
+.LSOverride
+
+# Windows
+ehthumbs.db
+Desktop.ini
+
+# Ignore compiled files
+*.class
+
+# pnpm debug (optional)
+.pnpm-debug.log
+
+# Local IDE workspace files
+.vscode/
